@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width" />
+  <title>Admin Portal</title>
+</head>
+
+<body>
+  <div class="main-wrapper">
+    <header class="ylin-container">
+      <div class="alku">
+        <h1 class="otsikko"> Päivän läsnäolijat</h1>
+      </div>
+      <div class="loppu">
+        <a href="index.html" class="block etusivu">Etusivu</a>
+        <a href="index.html" class="block sign-out">Kirjaudu ulos</a>
+      </div>
+    </header>
+    <section class="lasnaolijat-container">
+      <div class="block paikalla">
+        <p>Paikalla</p>
+        <br>
+        <p class="paikalla-olijat"></p>
+      </div>
+       <div class="block odottaa">
+        <p>Odottaa</p>
+        <br>
+        <p class="odottaa-olijat"></p>
+      </div>
+      <div class="block poissa">
+        <p>Poissa</p>
+        <br>
+        <p class="poissa-olijat"></p>
+      </div>
+    </section>
+    <main class="henkilo-container">
+      <div class="block tyontekijat">
+        <p>Työntekijät</p>
+      </div>
+      <div class="ohjaaja-container">
+        <div class="block ohjaajat">
+          <p>Ohjaajat</p>
+        </div>
+        <div class="block lisaa">
+          <form class="ohjaaja-form">
+            <label for="nimi">Nimi</label>
+            <br>
+            <input type="text" id="nimi">
+            <br>
+            <label for="lisatiedot">Lisätiedot</label>
+            <br>
+            <textarea id="lisatiedot"></textarea>
+            <br>
+            <label for="yhteystiedot">Yhteystiedot</label>
+            <br>
+            <input type="text" id="yhteystiedot">
+            <br>
+            <button type="submit">Lisää ohjaaja</button>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+
+</html>
