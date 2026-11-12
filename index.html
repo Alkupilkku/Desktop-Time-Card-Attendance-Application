@@ -10,6 +10,7 @@
 </head>
 
 <body>
+  <!-- Tämän päivän tiedot -->
   <div class="main-wrapper">
     <header class="ylin-container">
       <div class="leimakortti">
@@ -20,20 +21,31 @@
       <a href="admin.html" class="block sign-in">Admin kirjautuminen</a>
     </header>
     <main class="tiedot">
-      <div class="lasnaolijat">
-        <h3>Napauta RFID-lätkää puhelimen päällä tai kirjaudu tunnuksillasi sisään</h3>
-        <p class="bubble paikalla">Paikalla</p>
-        <p class="bubble odottaa">Odottaa</p>
-        <p class="bubble poissa">Poissa</p>
-      </div>
-      <div class="block ohjaajat">
-        <p>Ohjaajat</p>
-      </div>
-      <div class="block info">
-        <h2>Käyttöohjeet</h2>
-        <br>
-        <p>Näyttämällä RFID-lätkää näytön vieressä olevan puhelimen päällä voit tunnistautua ilman sisäänkirjautumista.
-        </p>
+      <section class="lasnaolijat-wrapper">
+        <div class="lasnaolijat-container">
+          <h3>Napauta RFID-lätkää puhelimen päällä tai kirjaudu tunnuksillasi sisään</h3>
+          <p class="bubble paikalla">Paikalla</p>
+          <p class="bubble odottaa">Odottaa</p>
+          <p class="bubble poissa">Poissa</p>
+        </div>
+        <div class="henkilot">
+          <!--Tallenetut henkilöstöt  -->
+          <article class="block henkilo">
+          </article>
+        </div>
+      </section>
+      <!-- Tallenetut ohaajat -->
+      <div class="side-wrapper">
+        <div class="block ohjaajat">
+          <p>Ohjaajat</p>
+        </div>
+        <div class="block info">
+          <h2>Käyttöohjeet</h2>
+          <br>
+          <p>Näyttämällä RFID-lätkää näytön vieressä olevan puhelimen päällä voit tunnistautua ilman
+            sisäänkirjautumista.
+          </p>
+        </div>
       </div>
     </main>
   </div>
