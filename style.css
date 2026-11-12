@@ -1,5 +1,6 @@
 body {
   padding: 0px 3px;
+  background-color: antiquewhite;
 }
 
 h1 {
@@ -65,7 +66,10 @@ h3{
 .info {
   background-color: black;
   flex-direction: column;
-  flex: 1;
+  height: fit-content;
+  width: fit-content;
+  padding: 10px;
+  margin: 5px 4px 15px;
 }
 
 .info p {
@@ -113,10 +117,12 @@ h3{
   gap: 8px;
   flex: 2;
 }
-.tyontekijat {
+.tyontekijat-wrapper{
   flex: 8;
 }
-
+.tyontekijat{
+  justify-content: space-between;
+}
 .ohjaajat {
   flex: 1;
 }
