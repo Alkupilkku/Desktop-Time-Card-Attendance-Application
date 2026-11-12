@@ -5,12 +5,16 @@ body {
 h1 {
   font-size: large;
   font-weight: bold;
+  padding: 10px;
 }
 
 h2 {
   color: lightsalmon;
 }
-
+h3{
+  padding: 0px 10px;
+  margin: 10px 0px 5px;
+}
 .main-wrapper {
   padding: 1px 3px;
   margin: 0px 1px;
