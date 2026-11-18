@@ -6,6 +6,8 @@ const paikalla = document.getElementsByClassName("paikalla")
 const poissa = document.getElementsByClassName("poissa")
 const odottaa = document.getElementsByClassName("odottaa")
 const tyontekijat = document.getElementsByClassName("tyontekijat-wrapper")
+const tyontekijaLisaa = document.getElementsByClassName("side-wrapper")
+
 
 const img = document.createElement('img')
 img.width = 200;
@@ -53,7 +55,35 @@ const temp_kayttaja = {
   kielet: []
 }
 function valitseKieli(kieliId) {
-  if (temp_kayttaja.includes(kieliId)) {
-    temp_kayttaja.defineProperty(kielet,)
+  const loytyyko = temp_kayttaja.kielet.includes(kieliId);
+  if (loytyyko) {
+    temp_kayttaja.kielet = temp_kayttaja.kielet.filter(id => id !== kieliId);
+  }
+  else {
+    temp_kayttaja.kielet = kieliId;
   }
 }
+const dropdown = kieliLista.map((kieli) => `<option value=${kieli.id}>${kieli.nimi}</option>`).join()
+const forms = document.createElement("div");
+forms.classList.add("block", "ohjaaja-form");
+forms.innerHTML = `
+ <form class="ohjaaja-form">
+  <h3>Lisää Työntekijä</h3 >
+  <label for="nimi">Nimi</label>
+  <br>
+  <input type="text" id="nimi"></input>
+  <br>
+  <label for="kielet">Kielet</label> 
+  <br>
+  <select id="kielet" multiple size="1">
+  ${dropdown}
+  </select>
+  <br>
+  <label for="yhteystiedot">Yhteystiedot</label>
+  <br>
+  <input type="text" id="yhteystiedot">
+  <br> 
+  <button type="submit" id="hyvaksy">Lisää Työntekijä</button>
+  </form>
+`
+tyontekijaLisaa[0].appendChild(forms)
