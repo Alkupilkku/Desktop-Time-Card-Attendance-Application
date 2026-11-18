@@ -6,14 +6,12 @@ const paikalla = document.getElementsByClassName("paikalla")
 const poissa = document.getElementsByClassName("poissa")
 const odottaa = document.getElementsByClassName("odottaa")
 const tyontekijat = document.getElementsByClassName("tyontekijat-wrapper")
-const tyontekijaLisaa = document.getElementsByClassName("side-wrapper")
-
+const tyontekijatAdmin = document.getElementsByClassName("lasnaolijat-wrapper")
+const tyontekijaLisaa = document.getElementsByClassName("side-wrapper-admin")
 
 const img = document.createElement('img')
 img.width = 200;
 img.classList.add('logo');
-
-
 
 //henkilö kortti testitoiminta
 const henkilosto = [
@@ -37,6 +35,7 @@ for (let i = 0; i < henkilosto.length; i++) {
   `
   tyontekijat[0].appendChild(henkiloLaatikko)
 }
+
 //Kielien lippulista
 const kieliLista = [
   { id: "fi", nimi: "Suomi", flagURL: "https://flagcdn.com/w80/fi.png" },
@@ -47,6 +46,19 @@ const kieliLista = [
   { id: "dk", nimi: "Tanska", flagURL: "https://flagcdn.com/w80/dk.png" },
   { id: "gr", nimi: "Kreikka", flagURL: "https://flagcdn.com/w80/gr.png" },
   { id: "it", nimi: "Italia", flagURL: "https://flagcdn.com/w80/it.png" },
+  { id: "no", nimi: "Norja", flagURL: "https://flagcdn.com/w80/no.png" },
+  { id: "es", nimi: "Espanja", flagURL: "https://flagcdn.com/w80/es.png" },
+  { id: "gb", nimi: "Iso-Britannia", flagURL: "https://flagcdn.com/w80/gb.png" },
+  { id: "se", nimi: "Ruotsi", flagURL: "https://flagcdn.com/w80/se.png" },
+  { id: "us", nimi: "Yhdysvallat", flagURL: "https://flagcdn.com/w80/us.png" },
+  { id: "ca", nimi: "Kanada", flagURL: "https://flagcdn.com/w80/ca.png" },
+  { id: "au", nimi: "Australia", flagURL: "https://flagcdn.com/w80/au.png" },
+  { id: "nl", nimi: "Alankomaat", flagURL: "https://flagcdn.com/w80/nl.png" },
+  { id: "pl", nimi: "Puola", flagURL: "https://flagcdn.com/w80/pl.png" },
+  { id: "is", nimi: "Islanti", flagURL: "https://flagcdn.com/w80/is.png" },
+  { id: "pt", nimi: "Portugali", flagURL: "https://flagcdn.com/w80/pt.png" },
+  { id: "br", nimi: "Brasilia", flagURL: "https://flagcdn.com/w80/br.png" },
+  { id: "mx", nimi: "Meksiko", flagURL: "https://flagcdn.com/w80/mx.png" }
 ]
 
 const temp_kayttaja = {
@@ -54,13 +66,19 @@ const temp_kayttaja = {
   ammatti: "työntekijä",
   kielet: []
 }
-function valitseKieli(kieliId) {
+function valitseKieli(kieliId, annettuNimi) {
+  const tyontekija = henkilosto.find(henkilo => henkilo.nimi === annettuNimi);
   const loytyyko = temp_kayttaja.kielet.includes(kieliId);
+  if (!tyontekija) {
+    return "Työntekijää ei löytynyt."
+  }
+  tyontekija.kielet.includes(kieliId);
+
   if (loytyyko) {
-    temp_kayttaja.kielet = temp_kayttaja.kielet.filter(id => id !== kieliId);
+    tyontekija.kielet = tyontekija.kielet.filter(id => id !== kieliId);
   }
   else {
-    temp_kayttaja.kielet = kieliId;
+    tyontekija.kielet.push(kieliId)
   }
 }
 const dropdown = kieliLista.map((kieli) => `<option value=${kieli.id}>${kieli.nimi}</option>`).join()

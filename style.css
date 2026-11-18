@@ -14,6 +14,7 @@ h2 {
 }
 
 h3 {
+  font-size: larger;
   padding: 0px 10px;
   margin: 10px 0px 5px;
 }
@@ -37,7 +38,6 @@ h3 {
 }
 
 .block {
-
   display: flex;
   background-color: lightgreen;
   border-radius: 10px;
@@ -130,6 +130,13 @@ h3 {
   flex: 2;
 }
 
+.side-wrapper-admin {
+  display: flex;
+  flex-flow: column wrap;
+  gap: 8px;
+  flex: 2;
+}
+
 .tyontekijat-wrapper {
   gap: 4px;
 }
@@ -169,11 +176,11 @@ textarea {
   border-radius: 10px;
   color: black;
   background-color: beige;
-  border-color: rgb(218, 218, 140);
+  border-color: beige;
   box-sizing: border-box;
   font-size: 15px;
   padding: 10px 15px;
-  width:100%;
+  width: 97%;
 }
 
 #hyvaksy {
@@ -189,6 +196,21 @@ textarea {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: 13px;
   color: black;
+}
+
+label {
+  font-size: larger;
+}
+
+select {
+  border-radius: 10px;
+  color: black;
+  background-color: beige;
+  border-color: rgb(218, 218, 140);
+  box-sizing: border-box;
+  font-size: 15px;
+  padding: 10px 11px;
+  width: 97%;
 }
 
 a:link,
@@ -223,6 +245,7 @@ a:visited {
   flex: auto;
   padding: 10px;
 }
-form{
+
+form {
   width: 100%;
 }
