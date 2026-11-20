@@ -8,9 +8,48 @@ const tyontekijat = document.getElementsByClassName("tyontekijat-wrapper")
 const tyontekijatAdmin = document.getElementsByClassName("lasnaolijat-wrapper")
 const tyontekijaLisaa = document.getElementsByClassName("side-wrapper-admin")
 const ohjaajat = document.getElementsByClassName("ohjaajat")
-const img = document.createElement('img')
-img.width = 100;
-img.classList.add('logo');
+
+//Sää osuus
+
+const apikey = "a2399daa59fab6bf54657e87f9cfb8ad";
+const city = "Helsinki";
+
+function loadWeather() {
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener('load', () => {
+    let weatherHTML = '';
+
+    if (xhr.status !== 200) {
+      weatherHTML = `
+            <div class="desc">Could not load weather for ${city}.</div>
+        `;
+    } else {
+      const weather = JSON.parse(xhr.response);
+      weatherHTML = `
+            <div class="city">${weather.name}</div>
+            <div class="temp">${Math.floor(weather.main.temp)}°C</div>
+            <div class="desc">${weather.weather[0].main}</div>
+            <div class="feel">Feels like: ${Math.floor(weather.main.feels_like)}°C</div>
+            <div class="humidity">Humidity: ${weather.main.humidity}%</div>
+            <div class="windspeed">Wind Speed: ${weather.wind.speed} m/s</div>
+        `;
+    }
+
+    const weather = document.getElementsByClassName("weather")
+    if (weather.length > 0) {
+      weather[0].innerHTML = weatherHTML;
+    }
+  });
+
+  xhr.open('GET', `https://api.openweathermap.org/data/2.5/weather?q=${city},FI&appid=${apikey}&units=metric`);
+  xhr.send();
+
+}
+
+loadWeather();
+setInterval(loadWeather, 10 * 60 * 1000);
+
 
 //henkilö kortti testitoiminta
 const henkilosto = [
@@ -29,8 +68,19 @@ for (let i = 0; i < henkilosto.length; i++) {
   henkiloLaatikko.classList.add("henkilo-kortti");
   henkiloLaatikko.innerHTML = `
   <h3>${henkilosto[i].nimi}</h3>
-  <p>${henkilosto[i].kielet}</p>
+  <div class="liput"></div>
   `
+  const lippuSailio = henkiloLaatikko.querySelector(".liput")
+  const henkilonKieli = henkilosto[i].kielet;
+  const tyontekija = henkilosto[i].nimi;
+
+  henkilonKieli.forEach((kieliId) =>{
+    const lippu = saaLippu(kieliId, tyontekija)
+     if (lippu) {
+    lippuSailio.appendChild(lippu)
+  }
+  })
+;
   tyontekijat[0].appendChild(henkiloLaatikko)
 }
 //ohjaaja kortti testitoiminta
@@ -93,6 +143,25 @@ function valitseKieli(kieliId, annettuNimi) {
   }
 }
 
+function saaLippu(kieliId, annettuNimi) {
+  const tyontekija = henkilosto.find(henkilo => henkilo.nimi === annettuNimi);
+  if (!tyontekija) {
+    return
+  }
+  const kieliTieto = kieliLista.find((kieli) => kieli.id == kieliId);
+  const loytyyko = tyontekija.kielet.includes(kieliId);
+  if (!loytyyko || !kieliTieto) {
+    return
+  }
+  const lippu = kieliTieto.flagURL
+  const img = document.createElement('img')
+  img.src = lippu;
+  img.width = 100;
+  img.classList.add('logo');
+
+  return img
+
+}
 //Dynaaminen lomake kielilistaa varten
 
 const dropdown = kieliLista.map((kieli) => `<option value=${kieli.id}>${kieli.nimi}</option>`).join("")
@@ -141,48 +210,3 @@ document.querySelector('form').addEventListener("submit", function (event) {
     henkilosto.push(henkilo)
   }
 });
-
-
-
-//Sää osuus
-
-const apikey = "a2399daa59fab6bf54657e87f9cfb8ad";
-const city = "Helsinki";
-
-function loadWeather() {
-  const xhr = new XMLHttpRequest();
-
-  xhr.addEventListener('load', () => {
-    let weatherHTML = '';
-
-    if (xhr.status !== 200) {
-      weatherHTML = `
-            <div class="desc">Could not load weather for ${city}.</div>
-        `;
-    } else {
-      const weather = JSON.parse(xhr.response);
-      weatherHTML = `
-            <div class="city">${weather.name}</div>
-            <div class="temp">${Math.floor(weather.main.temp)}°C</div>
-            <div class="desc">${weather.weather[0].main}</div>
-            <div class="feel">Feels like: ${Math.floor(weather.main.feels_like)}°C</div>
-            <div class="humidity">Humidity: ${weather.main.humidity}%</div>
-            <div class="windspeed">Wind Speed: ${weather.wind.speed} m/s</div>
-        `;
-    }
-
-    const weather = document.getElementsByClassName("weather")
-    if (weather.length > 0) {
-      weather[0].innerHTML = weatherHTML;
-    }
-  });
-
-  xhr.open('GET', `https://api.openweathermap.org/data/2.5/weather?q=${city},FI&appid=${apikey}&units=metric`);
-  xhr.send();
-
-}
-
-loadWeather();
-setInterval(loadWeather, 10 * 60 * 1000);
-
-//Aika osuus
