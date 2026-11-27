@@ -1,6 +1,6 @@
 
 const henkilo = document.getElementsByClassName("henkilo")
-const aika = document.getElementsByClassName("aika")
+const aika = document.querySelector(".aika")
 const paikalla = document.getElementsByClassName("paikalla")
 const poissa = document.getElementsByClassName("poissa")
 const odottaa = document.getElementsByClassName("odottaa")
@@ -27,12 +27,8 @@ function loadWeather() {
     } else {
       const weather = JSON.parse(xhr.response);
       weatherHTML = `
-            <div class="city">${weather.name}</div>
-            <div class="temp">${Math.floor(weather.main.temp)}°C</div>
-            <div class="desc">${weather.weather[0].main}</div>
-            <div class="feel">Feels like: ${Math.floor(weather.main.feels_like)}°C</div>
-            <div class="humidity">Humidity: ${weather.main.humidity}%</div>
-            <div class="windspeed">Wind Speed: ${weather.wind.speed} m/s</div>
+            <div class="temp">${weather.weather[0].main} ${Math.floor(weather.main.temp)}°C</div>
+            <div class="feel">${weather.name} · Ilmankosteus ${weather.main.humidity}%  · Tuuli ${weather.wind.speed} m/s</div>
         `;
     }
 
@@ -51,6 +47,32 @@ loadWeather();
 setInterval(loadWeather, 10 * 60 * 1000);
 
 
+// Aika osio
+const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+const tuntiMuotoilija =  Intl.DateTimeFormat("fi-FI", {
+timeZone,
+timeStyle: 'medium'
+});
+const paivaMuotoilija =  Intl.DateTimeFormat("fi-FI", {
+timeZone,
+dateStyle: 'full',
+});
+
+function paivitaKello (){
+const nyt = new Date();
+const nykyinenAika = tuntiMuotoilija.format(nyt);
+const nykyinenPaiva = paivaMuotoilija.format(nyt);
+if(aika){
+aika.innerHTML = `
+<div class="kellonAika">${nykyinenAika}</div>
+<div class="paivamaara">${nykyinenPaiva}</div>
+`}
+};
+if(aika){
+paivitaKello();
+setInterval(paivitaKello, 1000);
+}
 //henkilö kortti testitoiminta
 const henkilosto = [
   { nimi: "Matti Meikäläinen", kielet: [] },
@@ -60,8 +82,11 @@ const henkilosto = [
   { nimi: "Matti Meikäläinen", kielet: [] },
   { nimi: "Seppo Selkeä", kielet: [] }
 ]
+
 const kortti = document.getElementsByClassName("henkilo-kortti")
-tyontekijat[0].innerHTML = "";
+if(tyontekijat){
+  tyontekijat[0].innerHTML = "";
+}
 
 for (let i = 0; i < henkilosto.length; i++) {
   const henkiloLaatikko = document.createElement("div");
@@ -79,10 +104,12 @@ for (let i = 0; i < henkilosto.length; i++) {
      if (lippu) {
     lippuSailio.appendChild(lippu)
   }
-  })
-;
-  tyontekijat[0].appendChild(henkiloLaatikko)
-}
+  });
+
+  if(tyontekijat){
+    tyontekijat[0].appendChild(henkiloLaatikko)
+  }}
+
 //ohjaaja kortti testitoiminta
 const ohjaajatLista = [
   { nimi: "Katri Kätevä", lisatiedot: "Paikalla 10:00-18:00", kielet: [] },
@@ -101,8 +128,9 @@ for (let i = 0; i < ohjaajatLista.length; i++) {
   <p>${ohjaajatLista[i].kielet}</p>
   
   `
+  if(ohjaajat){
   ohjaajat[0].appendChild(ohjaajaLaatikko)
-}
+}}
 
 //Kielien lippulista
 const kieliLista = [
@@ -187,10 +215,14 @@ forms.innerHTML = `
   <button type="submit" id="hyvaksy">Lisää Työntekijä</button>
   </form>
 `
+if(tyontekijaLisaa){
 tyontekijaLisaa[0].appendChild(forms)
+}
 
+const form = document.querySelector('tyontekija-form');
 
-document.querySelector('form').addEventListener("submit", function (event) {
+if(form){
+form.addEventListener("submit", function (event) {
   event.preventDefault()
   const nimi = document.querySelector('#nimi')
   const kielet = document.querySelector('#kielet')
@@ -210,3 +242,6 @@ document.querySelector('form').addEventListener("submit", function (event) {
     henkilosto.push(henkilo)
   }
 });
+}
+
+//Keytagin lukijan testaus
